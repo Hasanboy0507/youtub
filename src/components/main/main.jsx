@@ -1,16 +1,24 @@
 import { Box, Container, Stack, Typography } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { colors } from "../../../constants/colors"
 import {Category} from '../'
+import { ApiService } from "../../service/api.service"
 
 
 const Main = () => {
-  // eslint-disable-next-line no-unused-vars
   const [selectCategory, setSelectCategory] = useState('New')
+  const selectCategoryHandler = category => setSelectCategory(category)
+
+
+  useEffect(() => {
+    ApiService.fetching('search').then(data => console.log(data)
+    )
+  }, [])
   
   return (
     <Stack>
-      <Category/>
+      <Category selectCategoryHandler={selectCategoryHandler} selectCategory={selectCategory}/>
+
       <Box p={2} sx={{height:'90vh'}}>
         <Container maxWidth={'90%'}>
           <Typography variant={'h4'} fontWeight={'bold'} mb={2}>
